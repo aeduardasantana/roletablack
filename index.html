@@ -27,7 +27,7 @@
       height: 100%;
       border-radius: 50%;
       position: relative;
-      border: 8px solid rgba(255, 255, 255, 0.5); /* Added 50% transparency to the white border */
+      border: 8px solid rgba(255, 255, 255, 0.5);
       transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
       overflow: hidden;
       box-shadow: inset 0 0 0 6px #000;
@@ -164,7 +164,7 @@
         <div class="slice"><span class="slice-text">50%</span></div>
       </div>
       <div class="wheel-center">
-        <button class="spin-button" onclick="spinWheel()">Girar Roleta</button>
+        <button class="spin-button" id="spinButton" onclick="spinWheel()">Girar Roleta</button>
       </div>
     </div>
     <div id="result"></div>
@@ -177,6 +177,7 @@
     const result = document.getElementById('result');
     const whatsappLink = document.getElementById('whatsapp-link');
     const nameInput = document.getElementById('name-input');
+    const spinButton = document.getElementById('spinButton');
     const discounts = [10, 20, 30, 40, 50];
     let canSpin = true;
     let selectedDiscount;
@@ -203,6 +204,9 @@
       canSpin = false;
       const rotation = Math.floor(Math.random() * 360) + 720;
       wheel.style.transform = `rotate(${rotation}deg)`;
+      
+      // Hide the spin button
+      spinButton.style.display = 'none';
       
       setTimeout(() => {
         const actualRotation = rotation % 360;
