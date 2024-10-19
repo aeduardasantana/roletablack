@@ -1,0 +1,250 @@
+<html><head><base href="https://wa.me/5515996288817?text=Ol%25C3%25A1%252C%2520girei%2520a%2520roleta%2520e%2520ganhei%2520o%2520desconto%2520de%252050%2525%252C%2520quero%2520resgatar%20agora.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta de Descontos com Luzes de Camarim Vermelhas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    .wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      border: 8px solid rgba(255, 255, 255, 0.5); /* Added 50% transparency to the white border */
+      transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 6px #000;
+    }
+    .slice {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 38%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      transition: filter 0.5s ease;
+    }
+    .slice-text {
+      position: absolute;
+      top: 25%;
+      left: 75%;
+      transform: translate(-50%, -50%) rotate(-72deg);
+      color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+      transition: all 0.5s ease;
+    }
+    .slice:nth-child(1) { transform: rotate(0deg); background-color: #008000; }
+    .slice:nth-child(2) { transform: rotate(72deg); background-color: #FFFFFF; }
+    .slice:nth-child(3) { transform: rotate(144deg); background-color: #008000; }
+    .slice:nth-child(4) { transform: rotate(216deg); background-color: #FFFFFF; }
+    .slice:nth-child(5) { transform: rotate(288deg); background-color: #FF0000; }
+    .spin-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px;
+      font-size: 16px;
+      background-color: #000000;
+      color: white;
+      border: 2px solid #4CAF50;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+    .spin-button:hover {
+      background-color: #1a1a1a;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    }
+    .spin-button:active {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+    #whatsapp-link {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #name-input {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    @keyframes zoom {
+      0% { transform: translate(-50%, -50%) rotate(-72deg) scale(1); }
+      50% { transform: translate(-50%, -50%) rotate(-72deg) scale(1.5); }
+      100% { transform: translate(-50%, -50%) rotate(-72deg) scale(1); }
+    }
+    .blink {
+      animation: blink 0.5s ease-in-out infinite;
+    }
+    .zoom {
+      animation: zoom 1s ease-in-out infinite;
+    }
+    .bulb {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #ff0000;
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background-color: #000;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="wheel-container">
+      <div class="wheel" id="wheel">
+        <div class="slice"><span class="slice-text">10%</span></div>
+        <div class="slice"><span class="slice-text">20%</span></div>
+        <div class="slice"><span class="slice-text">30%</span></div>
+        <div class="slice"><span class="slice-text">40%</span></div>
+        <div class="slice"><span class="slice-text">50%</span></div>
+      </div>
+      <div class="wheel-center">
+        <button class="spin-button" onclick="spinWheel()">Girar Roleta</button>
+      </div>
+    </div>
+    <div id="result"></div>
+    <input type="text" id="name-input" placeholder="Digite seu nome" style="display: none;">
+    <a id="whatsapp-link" href="#" onclick="sendWhatsApp(event)">Resgatar no WhatsApp</a>
+  </div>
+
+  <script>
+    const wheel = document.getElementById('wheel');
+    const result = document.getElementById('result');
+    const whatsappLink = document.getElementById('whatsapp-link');
+    const nameInput = document.getElementById('name-input');
+    const discounts = [10, 20, 30, 40, 50];
+    let canSpin = true;
+    let selectedDiscount;
+
+    function createBulbs() {
+      const wheelContainer = document.querySelector('.wheel-container');
+      const bulbCount = 20;
+      const radius = 160;
+      for (let i = 0; i < bulbCount; i++) {
+        const angle = (i / bulbCount) * 2 * Math.PI;
+        const x = radius * Math.cos(angle) + 150;
+        const y = radius * Math.sin(angle) + 150;
+        const bulb = document.createElement('div');
+        bulb.className = 'bulb';
+        bulb.style.left = `${x}px`;
+        bulb.style.top = `${y}px`;
+        bulb.style.animation = `flicker ${Math.random() * 0.5 + 0.5}s infinite`;
+        wheelContainer.appendChild(bulb);
+      }
+    }
+
+    function spinWheel() {
+      if (!canSpin) return;
+      canSpin = false;
+      const rotation = Math.floor(Math.random() * 360) + 720;
+      wheel.style.transform = `rotate(${rotation}deg)`;
+      
+      setTimeout(() => {
+        const actualRotation = rotation % 360;
+        const selectedIndex = Math.floor(actualRotation / (360 / discounts.length));
+        selectedDiscount = discounts[selectedIndex];
+        
+        result.textContent = `Parabéns! Você ganhou ${selectedDiscount}% de desconto!`;
+        
+        nameInput.style.display = "inline-block";
+        whatsappLink.style.display = "inline-block";
+        
+        const slices = document.querySelectorAll('.slice');
+        const texts = document.querySelectorAll('.slice-text');
+        slices.forEach((slice, index) => {
+          if (index === selectedIndex) {
+            slice.classList.add('blink');
+            texts[index].classList.add('zoom');
+          } else {
+            slice.classList.remove('blink');
+            texts[index].classList.remove('zoom');
+          }
+        });
+        
+        canSpin = true;
+      }, 5000);
+    }
+
+    function sendWhatsApp(event) {
+      event.preventDefault();
+      const name = nameInput.value.trim();
+      if (name === "") {
+        alert("Por favor, digite seu nome antes de resgatar o desconto.");
+        return;
+      }
+      
+      const message = `Olá, meu nome é ${name}, girei a roleta e ganhei o desconto de ${selectedDiscount}%, quero resgatar agora.`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/5515996288817?text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    createBulbs();
+  </script>
+</body>
+</html>
